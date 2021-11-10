@@ -9,11 +9,15 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 @Table(name = "customer")
 public class CustomerEntity {
 
@@ -23,7 +27,11 @@ public class CustomerEntity {
 
     private String firstName;
 
+    private String midleName;
+
     private String lastName;
+
+    private String systemCode;
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false, insertable = false)

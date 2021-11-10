@@ -14,23 +14,27 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ExtendWith(MockitoExtension.class)
 class AdvanceCustomerMapperTest {
 
-    private AdvanceCustomerMapper advanceCustomerMapper;
+  private AdvanceCustomerMapper advanceCustomerMapper;
 
-    @BeforeEach
-    void setUp() {
-        advanceCustomerMapper = new AdvanceCustomerMapperImpl();
-    }
+  @BeforeEach
+  void setUp() {
+    advanceCustomerMapper = new AdvanceCustomerMapperImpl();
+  }
 
-    @Test
-    public void test() throws Exception {
-        final LocalDateTime expectedTime = LocalDateTime.of(2021, 1, 25, 0, 0, 0);
-        CustomerInfo result = advanceCustomerMapper
-                .fromEntityToDto(
-                        CustomerEntity.builder()
-                                .createAt(expectedTime)
-                                .build()
-                );
-        assertEquals("2021-01-25 00:00:00", result.getFormattedCreateAt());
-    }
+  @Test
+  public void test() throws Exception {
+    final LocalDateTime expectedTime = LocalDateTime.of(2021, 1, 25, 0, 0, 0, 0);
+    CustomerInfo result = advanceCustomerMapper
+      .fromEntityToDto(
+        CustomerEntity.builder()
+          .createAt(expectedTime)
+          .systemCode("original-value")
+          .midleName("test")
+          .build()
+      );
+    assertEquals("2021-01-25 00:00:00", result.getDetail().getFormattedCreateAt());
+    assertEquals("test", result.getMidleName());
+    assertEquals("constant-value", result.getSystemCode());
+  }
 
 }
